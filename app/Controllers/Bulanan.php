@@ -26,6 +26,11 @@ class Bulanan extends BaseController
 
     public function bayar($id, $year, $month)
     {
+        $anggota = $this->anggota->find($id);
+
+        $msg = "Pembayaran bulan {$this->nama_bulan[$month - 1]} periode tahun {$year} berhasil!";
+        $this->sendMsgTele($anggota['id_tele'], $msg);
+
         $add_data = [
             'id_anggota' => $id,
             'month' => $month,

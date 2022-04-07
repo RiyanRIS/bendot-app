@@ -9,6 +9,9 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
+use BotMan\BotMan\BotManFactory;
+use BotMan\BotMan\Drivers\DriverManager;
+
 use \App\Models\AnggotaModel;
 use \App\Models\HimpunanModel;
 use \App\Models\BulananModel;
@@ -47,6 +50,10 @@ class BaseController extends Controller
     protected $himpunan;
     protected $bulanan;
 
+    protected $botman;
+
+    protected $nama_bulan;
+
     /**
      * Constructor.
      */
@@ -63,5 +70,25 @@ class BaseController extends Controller
         $this->anggota = new AnggotaModel();
         $this->himpunan = new HimpunanModel();
         $this->bulanan = new BulananModel();
+
+        DriverManager::loadDriver(\BotMan\Drivers\Telegram\TelegramDriver::class);
+    
+        $config = [
+            "telegram" => [
+            "token" => $_ENV['API_TELE']
+            ]
+        ];
+
+        $this->botman = BotManFactory::create($config);
+
+        $this->nama_bulan = ["Januari", "Februari", "Maret", 
+                            "April", "Mei", "Juni", 
+                            "Juli", "Agustus", "September", 
+                            "Oktober", "November", "Desember"];
+    }
+
+    protected function sendMsgTele($chatid, $msg)
+    {
+        return $this->botman->say($msg, $chatid, \BotMan\Drivers\Telegram\TelegramDriver::class);
     }
 }

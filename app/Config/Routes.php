@@ -32,9 +32,12 @@ $routes->setAutoRoute(false);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Auth::login');
-$routes->get('/login', 'Auth::login');
-$routes->post('/login', 'Auth::loginAction');
-$routes->get('/logout', 'Auth::logout');
+$routes->get('login', 'Auth::login');
+$routes->post('login', 'Auth::loginAction');
+$routes->get('logout', 'Auth::logout');
+
+$routes->add('bot', 'BotmanController::handle');
+$routes->add('setbot', 'BotmanController::setWebhook');
 
 $routes->group('anggota', ['filter' => 'authfilter:Admin'], function ($routes) {
     $routes->get('/', 'Anggota::index');
