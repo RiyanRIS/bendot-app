@@ -120,7 +120,7 @@ class BotmanController extends BaseController
 
     public function setWebhook()
     {
-        $url = "https://api.telegram.org/bot{$_ENV['API_TELE']}/setWebhook?url={$_ENV['app.baseURL']}/bot";
+        $url = "https://api.telegram.org/bot{$_ENV['API_TELE']}/setWebhook?url={$_ENV['BASE_URL']}/bot";
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
