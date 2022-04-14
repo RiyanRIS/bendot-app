@@ -31,4 +31,14 @@ class BulananModel extends Model
 										->getResultArray();
 	}
 
+	public function findByAnggotaTahun($id_anggota, $tahun)
+	{
+		return $this->db->table($this->table)
+										->select()
+										->where('year', $tahun)
+										->where('id_anggota', $id_anggota)
+										->get()
+										->getResultArray();
+	}
+
 }

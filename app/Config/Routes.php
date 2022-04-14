@@ -37,6 +37,7 @@ $routes->post('login', 'Auth::loginAction');
 $routes->get('logout', 'Auth::logout');
 
 $routes->add('bot', 'BotmanController::handle');
+$routes->get('notif-belum-bayar', 'BotmanController::notifBelumBayar');
 $routes->add('setbot', 'BotmanController::setWebhook');
 
 $routes->group('anggota', ['filter' => 'authfilter:Admin'], function ($routes) {

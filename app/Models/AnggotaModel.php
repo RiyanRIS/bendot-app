@@ -21,12 +21,20 @@ class AnggotaModel extends Model
 			return $id ?? false;
 	}
 
+	public function findByChatid(string $chat_id):array
+	{
+		return $this->db->table($this->table)
+												->where('id_tele', $chat_id)
+												->get()
+												->getResultArray();
+	}
+
 	public function findByUsername(string $username):array
 	{
 		return $this->db->table($this->table)
 												->where('username', $username)
 												->get()
-												->getResultArray()[0];
+												->getResultArray();
 	}
 
 	public function validLogin(string $username, string $password):bool

@@ -23,6 +23,7 @@ class Auth extends BaseController
 
         if($this->anggota->validLogin($username, $password)){
             $anggota = $this->anggota->findByUsername($username);
+            $anggota = $anggota[0];
             $session_data = [
                 "islogin" => true,
                 "user_username" => $anggota['username'],
@@ -38,7 +39,8 @@ class Auth extends BaseController
             } else if($anggota['role'] == "Bendahara"){
                 return redirect()->to(site_url("himpunan"))->with("msg", [1, $pesan_selamatdatang]);
             } else if($anggota['role'] == "Anggota"){
-                echo "Terima kasih telah mencoba mengakses halaman ini, akun kamu valid namun tidak memiliki akses ke fitur apapun.";
+                $this->session->setFlashdata('input', $this->request->getPost());
+                return redirect()->to(site_url("login"))->with("msg", [0, "Mohon maaf, role Anggota belum memiliki akses apapun dalam website ini."]);
             }
         } else {
             $this->session->setFlashdata('input', $this->request->getPost());
@@ -58,6 +60,6 @@ class Auth extends BaseController
         session()->set($session_data);
         $date = date("d F Y");
         return redirect()->to(site_url("login"))->with("msg", [1, "Proses logout berhasil pada {$date}, sampai jumpa lagi."]);
-
     }
+
 }
