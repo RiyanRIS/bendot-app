@@ -28,13 +28,11 @@ class BotmanController extends BaseController
             foreach($himpunans as $himpunan){
                 $waktu_terbilang = date("d F Y H:i", strtotime($himpunan['waktu']));
                 $jumlah_terbilang = "Rp " . number_format(str_replace(",", "", $himpunan['jumlah']));
-                $total_terbilang = "Rp " . number_format(str_replace(",", "", $himpunan['total']));
 
                 $msg .= "{$waktu_terbilang}\n";
                 $msg .= "   Nama: {$himpunan['nama']}\n";
                 $msg .= "   Tipe: {$himpunan['tipe']}\n";
                 $msg .= "   Jumlah: {$jumlah_terbilang}\n";
-                $msg .= "   Total Saldo: {$total_terbilang}\n\n";
             }
             return $bot->reply($msg);
         });

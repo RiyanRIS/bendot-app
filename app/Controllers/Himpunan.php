@@ -39,7 +39,6 @@ class Himpunan extends BaseController
             "nama" => $this->request->getPost('nama'),
             "waktu" => date("Y-m-d H:i:s", strtotime($this->request->getPost('waktu'))),
             "jumlah" => str_replace(",", "", $this->request->getPost('jumlah')),
-            "total" => str_replace(",", "", $this->request->getPost('total')),
         ];
 
         $insert = $this->himpunan->simpan($add_data);
@@ -48,13 +47,11 @@ class Himpunan extends BaseController
 
         $waktu_terbilang = date("d F Y H:i", strtotime($this->request->getPost('waktu')));
         $jumlah_terbilang = "Rp " . number_format(str_replace(",", "", $this->request->getPost('jumlah')));
-        $total_terbilang = "Rp " . number_format(str_replace(",", "", $this->request->getPost('total')));
 
         $msg = "Terjadi {$this->request->getPost('tipe')} dengan detail: \n\n";
         $msg .= "Nama: {$this->request->getPost('nama')}\n";
         $msg .= "Waktu: {$waktu_terbilang}\n";
         $msg .= "Jumlah: {$jumlah_terbilang}\n";
-        $msg .= "Total Saldo: {$total_terbilang}";
 
         foreach($anggotas as $anggota){
             try{
@@ -97,7 +94,6 @@ class Himpunan extends BaseController
             "nama" => $this->request->getPost('nama'),
             "waktu" => date("Y-m-d H:i:s",strtotime($this->request->getPost('waktu'))),
             "jumlah" => str_replace(",", "", $this->request->getPost('jumlah')),
-            "total" => str_replace(",", "", $this->request->getPost('total')),
         ];
 
         $update = $this->himpunan->update($id, $update_data);

@@ -12,7 +12,7 @@ class HimpunanModel extends Model
 	protected $returnType     = 'array';
 	protected $useSoftDeletes = false;
 
-	protected $allowedFields = ['id', 'tipe', 'nama', 'waktu', 'jumlah', 'total'];
+	protected $allowedFields = ['id', 'tipe', 'nama', 'waktu', 'jumlah'];
 	protected $useTimestamps = false;
 
 	public function simpan($data){
