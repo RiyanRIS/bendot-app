@@ -69,13 +69,24 @@
     }
     
   $(function () {
-   
 
     $("#datatable").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false, "searching": false,
-      // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-      // "buttons": ["excel", "pdf"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+      "responsive": true, "lengthChange": false, "autoWidth": false, 
+      "buttons": [
+            {
+                extend: 'excel',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3, 4, 5 ]
+                }
+            },
+            {
+                extend: 'pdf',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3, 4, 5 ]
+                }
+            },
+      ]
+    }).buttons().container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
 
     var Toast = Swal.mixin({
       toast: true,
