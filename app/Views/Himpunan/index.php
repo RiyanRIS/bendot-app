@@ -43,16 +43,21 @@
                   </thead>
                   <tbody>
                   <?php
-                    $no = 1;
+                    $no = 1; $saldo = 0;
                       foreach($himpunans as $himpunan){
+                        if($himpunan['tipe'] == "Pemasukan"){
+                          $saldo += $himpunan['jumlah'];
+                        } else {
+                          $saldo -= $himpunan['jumlah'];
+                        }
                     ?>
                   <tr>
                     <td><?= $no++ ?></td>
                     <td><span class="badge <?= $himpunan['tipe'] == "Pemasukan" ? "bg-success" : "bg-danger" ?>"><?= $himpunan['tipe'] ?></span></td>
                     <td><?= $himpunan['nama'] ?></td>
                     <td><?= date("Y-m-d H:i", strtotime($himpunan['waktu'])) ?></td>
-                    <td>Rp <?= number_format($himpunan['jumlah'], 0, ",", ".") ?>,-</td>
-                    <td>Rp <?= number_format($himpunan['total'], 0, ".", ".") ?>,-</td>
+                    <td><img src="<?= $himpunan['tipe'] == "Pemasukan" ? base_url("assets/img/plus.png") : base_url("assets/img/min.png") ?>" width="16px" alt="" />  Rp <?= number_format($himpunan['jumlah'], 0, ",", ".") ?>,-</td>
+                    <td>Rp <?= number_format($saldo, 0, ".", ".") ?>,-</td>
 
                     <td>
                       <a href="<?= site_url('himpunan/update/'.$himpunan['id']) ?>" title="Ubah Data" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> Update</a>

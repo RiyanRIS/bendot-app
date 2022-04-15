@@ -59,7 +59,6 @@
                       <?= @$errors['nama'] ?>
                     </div>
                   </div>
-                  <?= @date("c", strtotime($input['waktu'])) ?>
                   <div class="form-group">
                     <label for="waktu">Tanggal</label>
                     <input 
@@ -86,20 +85,6 @@
                       required="true" />
                     <div class="invalid-feedback">
                       <?= @$errors['jumlah'] ?>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="total">Total</label>
-                    <input 
-                      type="text" 
-                      name="total" 
-                      id="total" 
-                      class="form-control number <?= (@$errors['total']?'is-invalid':'') ?>"
-                      placeholder="9999999999" 
-                      value="<?= @number_format($input['total']) ?>" 
-                      required="true" />
-                    <div class="invalid-feedback">
-                      <?= @$errors['total'] ?>
                     </div>
                   </div>
                 </div>

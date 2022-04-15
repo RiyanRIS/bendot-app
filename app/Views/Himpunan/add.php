@@ -87,20 +87,6 @@
                       <?= @$errors['jumlah'] ?>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label for="total">Total</label>
-                    <input 
-                      type="text" 
-                      name="total" 
-                      id="total" 
-                      class="form-control number <?= (@$errors['total']?'is-invalid':'') ?>"
-                      placeholder="9999999999" 
-                      value="<?= @$input['total'] ?>" 
-                      required="true" />
-                    <div class="invalid-feedback">
-                      <?= @$errors['total'] ?>
-                    </div>
-                  </div>
                 </div>
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Submit</button>

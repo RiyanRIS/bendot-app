@@ -58,7 +58,6 @@
                         id="role" >
                         <option value="Anggota" <?= (@$input['role']!='Anggota'?:'selected') ?>>Anggota</option>
                         <option value="Bendahara" <?= (@$input['role']!='Bendahara'?:'selected') ?>>Bendahara</option>
-                        <option value="Admin" <?= (@$input['role']!='Admin'?:'selected') ?>>Admin</option>
                       </select>
                   </div>
                   <div class="form-group">
