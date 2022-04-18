@@ -12,6 +12,12 @@ use Psr\Log\LoggerInterface;
 use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Drivers\DriverManager;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+use Mpdf\Mpdf;
+use Mpdf\Output\Destination;
+
 use \App\Models\AnggotaModel;
 use \App\Models\HimpunanModel;
 use \App\Models\BulananModel;
@@ -46,6 +52,8 @@ class BaseController extends Controller
     protected $helpers = [];
 
     protected $session;
+    protected $cache;
+
     protected $anggota;
     protected $himpunan;
     protected $bulanan;
@@ -66,6 +74,7 @@ class BaseController extends Controller
         helper(['form', 'url', 'cookie' ,'ini_helper']);
 
         $this->session = \Config\Services::session();
+        $this->cache = \Config\Services::cache();
 
         $this->anggota = new AnggotaModel();
         $this->himpunan = new HimpunanModel();
@@ -90,5 +99,54 @@ class BaseController extends Controller
     protected function sendMsgTele($chatid, $msg)
     {
         return $this->botman->say($msg, $chatid, \BotMan\Drivers\Telegram\TelegramDriver::class);
+    }
+
+    protected function toExcel($name)
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue('A1', "NO");
+        $sheet->setCellValue('B1', "TIPE");
+        $sheet->setCellValue('C1', "NAMA");
+        $sheet->setCellValue('D1', "WAKTU");
+        $sheet->setCellValue('E1', "JUMLAH");
+        $sheet->setCellValue('F1', "TOTAL");
+
+        $himpunans = $this->himpunan->find();
+        $no = 1; $saldo = 0;
+        foreach($himpunans as $himpunan){
+            if($himpunan['tipe'] == "Pemasukan"){
+                $saldo += $himpunan['jumlah'];
+            } else {
+                $saldo -= $himpunan['jumlah'];
+            }
+            $sheet->setCellValue('A'.($no + 1), $no);
+            $sheet->setCellValue('B'.($no + 1), $himpunan['tipe']);
+            $sheet->setCellValue('C'.($no + 1), $himpunan['nama']);
+            $sheet->setCellValue('D'.($no + 1), date("Y-m-d H:i", strtotime($himpunan['waktu'])));
+            $sheet->setCellValue('E'.($no + 1), "Rp " . number_format($himpunan['jumlah'], 0, ",", ".") . ",-");
+            $sheet->setCellValue('F'.($no + 1), "Rp " . number_format($saldo, 0, ",", ".") . ",-");
+            $no++;
+        }
+        
+        $writer = new Xlsx($spreadsheet);
+        $writer->save($name);
+        return $name;
+    }
+
+    protected function toPdf($name)
+    {
+        $mpdf = new Mpdf();
+        $himpunans = $this->himpunan->find();
+
+        $datas = [
+            "himpunans" => $himpunans
+        ];
+
+        $html = view('to_pdf', $datas);
+
+        $mpdf->WriteHTML($html);
+        $mpdf->Output(__DIR__ . '/../../public/' . $name, Destination::FILE);
     }
 }

@@ -4,6 +4,11 @@ namespace App\Controllers;
 
 use BotMan\BotMan\BotMan;
 
+use BotMan\BotMan\Messages\Attachments\File;
+use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
+use Mpdf\Mpdf;
+use Mpdf\Output\Destination;
+
 class BotmanController extends BaseController
 {
     public function handle(){
@@ -22,18 +27,33 @@ class BotmanController extends BaseController
                 return;
             }
 
-            $himpunans = $this->himpunan->orderBy('waktu', 'desc')->find();
-            $msg = "List kas himpunan: \n\n";
+            $bot->reply("Memproses... Tunggu sebentar.");
 
-            foreach($himpunans as $himpunan){
-                $waktu_terbilang = date("d F Y H:i", strtotime($himpunan['waktu']));
-                $jumlah_terbilang = "Rp " . number_format(str_replace(",", "", $himpunan['jumlah']));
+            $name = date("YmdHis");
+            $nama_pdf =  $name . ".pdf";
+            $nama_xlsx = $name . ".xlsx";
 
-                $msg .= "{$waktu_terbilang}\n";
-                $msg .= "   Nama: {$himpunan['nama']}\n";
-                $msg .= "   Tipe: {$himpunan['tipe']}\n";
-                $msg .= "   Jumlah: {$jumlah_terbilang}\n";
-            }
+            $this->toPdf($nama_pdf);
+
+            /** 
+             * API Telegram hanya support gif, zip, and pdf. 
+             * https://github.com/botman/botman/issues/967
+             **/
+            $this->toExcel($nama_xlsx);
+
+            sleep(10);
+            $bot->reply(site_url($nama_pdf));
+            sleep(2);
+            $bot->reply(site_url($nama_xlsx));
+            sleep(2);
+
+            $attachment = new File(site_url($nama_pdf), [
+                'custom_payload' => true,
+            ]);
+
+            $msg = OutgoingMessage::create()
+            ->withAttachment($attachment);
+
             return $bot->reply($msg);
         });
 
