@@ -31,7 +31,7 @@ class BotmanController extends BaseController
 
             $name = date("YmdHis");
             $nama_pdf =  $name . ".pdf";
-            $nama_xlsx = $name . ".xlsx";
+            // $nama_xlsx = $name . ".xlsx";
 
             $this->toPdf($nama_pdf);
 
@@ -39,13 +39,13 @@ class BotmanController extends BaseController
              * API Telegram hanya support gif, zip, and pdf. 
              * https://github.com/botman/botman/issues/967
              **/
-            $this->toExcel($nama_xlsx);
+            // $this->toExcel($nama_xlsx);
 
-            sleep(10);
-            $bot->reply(site_url($nama_pdf));
+            // sleep(10);
+            // $bot->reply(site_url($nama_pdf));
             sleep(2);
-            $bot->reply(site_url($nama_xlsx));
-            sleep(2);
+            // $bot->reply(site_url($nama_xlsx));
+            // sleep(2);
 
             $attachment = new File(site_url($nama_pdf), [
                 'custom_payload' => true,
