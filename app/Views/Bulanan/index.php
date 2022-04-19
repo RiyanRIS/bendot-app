@@ -72,6 +72,7 @@
                     <?php
                       $no = 1;
                       foreach($anggotas as $anggota){
+                        if($anggota['role'] == "Admin") continue;
                         $stt = false;
                         foreach($bulanans as $bulanan){
                           if($anggota['id'] == $bulanan['id_anggota'] 

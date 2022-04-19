@@ -44,6 +44,7 @@
                     <?php
                     $no = 1;
                       foreach($anggotas as $anggota){
+                        if($anggota['role'] == "Admin") continue;
                     ?>
                   <tr>
                     <td><?= $no++ ?></td>
