@@ -13,7 +13,7 @@
                 border-collapse:collapse;
             }
         </style>
-        <h1>List himpunan</h1>
+        <h1>Khas Himpunan Mahasiswa Informatika</h1>
 <table>
     <tr>
       <th>No</th>

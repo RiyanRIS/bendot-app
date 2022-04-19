@@ -18,7 +18,7 @@ class BotmanController extends BaseController
             return $bot->reply($msg);
         });
 
-        $this->botman->hears('/show_himpunan', function (BotMan $bot) {
+        $this->botman->hears('/khashmif', function (BotMan $bot) {
             $user = $bot->getUser();
 
             $anggota = $this->anggota->findByChatid($user->getId());
@@ -57,7 +57,7 @@ class BotmanController extends BaseController
             return $bot->reply($msg);
         });
 
-        $this->botman->hears('/show_bulanan', function (BotMan $bot) {
+        $this->botman->hears('/khasbulanan', function (BotMan $bot) {
             $user = $bot->getUser();
     
             $anggota = $this->anggota->findByChatid($user->getId());
