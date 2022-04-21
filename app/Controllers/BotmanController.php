@@ -14,11 +14,11 @@ class BotmanController extends BaseController
     public function handle(){
         $this->botman->hears('/start', function (BotMan $bot) {
             $user = $bot->getUser();
-            $msg = 'Halo '.$user->getFirstName().' '.$user->getLastName() . "\nTerima kasih telah melakukan registrasi pada @" . $_ENV['USERNAME_TELE'] . ".\n\nBerikut adalah kode unik yang dapat kamu serahkan kepada Admin sebagai bukti telah melakukan registrasi.\n\n". $user->getId();
+            $msg = 'Halo '.$user->getFirstName().' '.$user->getLastName() . "\nTerima kasih telah melakukan registrasi pada @" . $_ENV['USERNAME_TELE'] . ".\n\nBerikut adalah kode unik yang dapat kamu serahkan kepada Admin sebagai bukti telah melakukan registrasi.\n\nID TELEGRAM KAMU: ". $user->getId();
             return $bot->reply($msg);
         });
 
-        $this->botman->hears('/khashmif', function (BotMan $bot) {
+        $this->botman->hears('/kashmif', function (BotMan $bot) {
             $user = $bot->getUser();
 
             $anggota = $this->anggota->findByChatid($user->getId());
@@ -57,7 +57,7 @@ class BotmanController extends BaseController
             return $bot->reply($msg);
         });
 
-        $this->botman->hears('/khasbulanan', function (BotMan $bot) {
+        $this->botman->hears('/kasbulanan', function (BotMan $bot) {
             $user = $bot->getUser();
     
             $anggota = $this->anggota->findByChatid($user->getId());

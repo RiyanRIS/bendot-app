@@ -53,6 +53,8 @@ class Anggota extends BaseController
 
         $insert = $this->anggota->simpan($add_data);
 
+        $this->sendMsgTele($this->request->getPost('id_tele'), "Pendaftaran kamu telah disetuji oleh admin.");
+
         if($insert){
             return redirect()->to(site_url("anggota"))->with("msg", [1, "Data berhasil dimasukkan, silahkan cek data terbaru."]);
         } else {
