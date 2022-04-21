@@ -74,7 +74,7 @@
                       <?= @$errors['id_tele'] ?>
                     </div>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group" id="form-username">
                     <label for="username">Username</label>
                     <input 
                       type="text" 
@@ -82,13 +82,12 @@
                       id="username" 
                       class="form-control <?= (@$errors['username']?'is-invalid':'') ?>"
                       placeholder="Jokowi3^" 
-                      value="<?= @$input['username'] ?>" 
-                      required="true" />
+                      value="<?= @$input['username'] ?>" />
                     <div class="invalid-feedback">
                       <?= @$errors['username'] ?>
                     </div>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group" id="form-password">
                     <label for="password">Password</label>
                     <div class="input-group">
                       <input 
@@ -97,8 +96,7 @@
                         id="password" 
                         class="input form-control <?= (@$errors['password']?'is-invalid':'') ?>"
                         placeholder="***********" 
-                        value="<?= @$input['password'] ?>" 
-                        required="true" />
+                        value="<?= @$input['password'] ?>" />
                       <div class="input-group-append">
                         <span class="input-group-text" onclick="password_show_hide();">
                           <i class="fas fa-eye" id="show_eye"></i>
@@ -147,5 +145,26 @@ function password_show_hide() {
     hide_eye.style.display = "none";
   }
 }
+
+$("#form-username").hide();
+$("#form-password").hide();
+
+$("#role").change((a) => {
+  let roles = $("#role").val()
+  if(roles == "Bendahara"){
+    $("#username").attr("required","true");
+    $("#password").attr("required","true");
+    $("#form-username").show();
+    $("#form-password").show();
+  } else {
+    $("#username").removeAttr("required","true");
+    $("#password").removeAttr("required","true");
+    $("#form-username").hide();
+    $("#form-password").hide();  
+  }
+})
+
+// let role = $("#role").value()
+// console.log(role)
 
 </script>

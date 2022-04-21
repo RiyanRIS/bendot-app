@@ -32,13 +32,15 @@ class Anggota extends BaseController
             return redirect()->to(site_url("anggota/add"))->with("msg", [0, "Maaf, data yang kamu masukkan belum lengkap."]);
         }
 
-        if(!$this->anggota->validUsername($this->request->getPost('username'))){
-            $errors = [
-                "username" => "Username telah digunakan, harap gunakan yang lainya."
-            ];
-            $this->session->setFlashdata('input', $this->request->getPost());
-            $this->session->setFlashdata('errors', $errors);
-            return redirect()->to(site_url("anggota/add"));
+        if($this->request->getPost('username') != ""){
+            if(!$this->anggota->validUsername($this->request->getPost('username'))){
+                $errors = [
+                    "username" => "Username telah digunakan, harap gunakan yang lainya."
+                ];
+                $this->session->setFlashdata('input', $this->request->getPost());
+                $this->session->setFlashdata('errors', $errors);
+                return redirect()->to(site_url("anggota/add"));
+            }
         }
 
         $add_data = [
@@ -82,13 +84,15 @@ class Anggota extends BaseController
         $anggota = $this->anggota->find($id);
         $password = $anggota['password'];
 
-        if(!$this->anggota->validUsername($this->request->getPost('username'), $id)){
-            $errors = [
-                "username" => "Username telah digunakan, harap gunakan yang lainya."
-            ];
-            $this->session->setFlashdata('input', $this->request->getPost());
-            $this->session->setFlashdata('errors', $errors);
-            return redirect()->to(site_url("anggota/update/".$id));
+        if($this->request->getPost('username') != ""){
+            if(!$this->anggota->validUsername($this->request->getPost('username'), $id)){
+                $errors = [
+                    "username" => "Username telah digunakan, harap gunakan yang lainya."
+                ];
+                $this->session->setFlashdata('input', $this->request->getPost());
+                $this->session->setFlashdata('errors', $errors);
+                return redirect()->to(site_url("anggota/update/".$id));
+            }
         }
 
         if($this->request->getPost('password') != ""){

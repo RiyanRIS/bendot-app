@@ -51,8 +51,8 @@
                     <td><?= $anggota['nama'] ?></td>
                     <td><?= $anggota['role'] ?></td>
                     <td><?= $anggota['id_tele'] ?></td>
-                    <td><?= $anggota['username'] ?></td>
-                    <td>********</td>
+                    <td><?= ($anggota['role'] == "Bendahara" ? $anggota['username'] : "-") ?></td>
+                    <td><?= ($anggota['role'] == "Bendahara" ? "********" : "-") ?></td>
                     <td>
                       <a href="<?= site_url('anggota/update/'.$anggota['id']) ?>" title="Ubah Data" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> Update</a>
                       <a onclick="confirmation(event)" href="<?= site_url('anggota/delete/'.$anggota['id']) ?>" title="Hapus Data" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</a>
