@@ -114,14 +114,12 @@ class BotmanController extends BaseController
                     }
                 }
 
-                // if($stt){
-                //     if($anggota['id_tele'] != NULL){
-                //         $nama = strtoupper($anggota['nama']);
-                //         $panggil_bulan = strtoupper($this->nama_bulan[$month - 1]);
-                //         $msg = "[PENGINGAT] {$nama} harap segera melakukan pembayaran kas Bulanan untuk {$panggil_bulan} {$year}";
-                //         return $this->sendMsgTele($anggota['id_tele'], $msg);
-                //     }
-                // }
+                if($stt){
+                    $nama = strtoupper($anggota['nama']);
+                    $panggil_bulan = strtoupper($this->nama_bulan[$month - 1]);
+                    $msg = "[PENGINGAT] {$nama} harap segera melakukan pembayaran kas Bulanan untuk {$panggil_bulan} {$year}";
+                    $this->sendMsgTele($anggota['id_tele'], $msg);
+                }
 
                 // $month = $month - 1;
                 // if($month == 0){
