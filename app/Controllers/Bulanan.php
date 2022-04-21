@@ -28,7 +28,7 @@ class Bulanan extends BaseController
     {
         $anggota = $this->anggota->find($id);
 
-        $msg = "Pembayaran Khas Bulan {$this->nama_bulan[$month - 1]}";
+        $msg = "Kamu telah membayar kas bulan {$this->nama_bulan[$month - 1]} tahun {$year}";
         $this->sendMsgTele($anggota['id_tele'], $msg);
 
         $add_data = [
