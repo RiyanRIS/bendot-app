@@ -96,16 +96,16 @@ class BotmanController extends BaseController
 
     public function notifBelumBayar()
     {
-        $berapa_kali = 5; // max 12
+        $berapa_kali = 1; // max 12
 
         $bulanans = $this->bulanan->findAll();
         $anggotas = $this->anggota->findAll();
 
-        foreach($anggotas as $anggota){
+        foreach($anggotas as $anggota){ // Perulangan anggota
             $month = date('n');
             $year = date("Y");
             
-            for ($i=0; $i < $berapa_kali; $i++) {
+            for ($i=0; $i < $berapa_kali; $i++) { // Perulangan bulan
                 $stt = true;
 
                 foreach ($bulanans as $bulanan) {
@@ -121,13 +121,15 @@ class BotmanController extends BaseController
                     return $this->sendMsgTele($anggota['id_tele'], $msg);
                 }
 
-                $month = $month - 1;
-                if($month == 0){
-                    $month = 12;
-                    $year -= 1;
-                }
+                // $month = $month - 1;
+                // if($month == 0){
+                //     $month = 12;
+                //     $year -= 1;
+                // }
             }
         }
+
+        // $this->sendMsgTele("780207093", "Tes");
 
         $res = [
             'status' => "Ok"
