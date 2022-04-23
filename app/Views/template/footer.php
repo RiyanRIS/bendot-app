@@ -70,7 +70,7 @@
     
   $(function () {
 
-    $("#datatable").DataTable({
+    $("#datatable-withreport").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false, 
       "buttons": [
             {
@@ -86,7 +86,11 @@
                 }
             },
       ]
-    }).buttons().container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
+    }).buttons().container().appendTo('#datatable-withreport_wrapper .col-md-6:eq(0)');
+
+    $("#datatable").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false, 
+    });
 
     var Toast = Swal.mixin({
       toast: true,
